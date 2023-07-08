@@ -621,9 +621,9 @@ function update() {
                             document.getElementsByClassName("card")[i].children[3].innerHTML = Math.floor(data.data[i].count)
                         }
                         if (selected == data.data[i].id) {
-                            document.getElementById("card_" + selected).style.border = "1px solid red";
+                            document.getElementById("card_" + selected).style.border = "3px solid red";
                         } else {
-                            document.getElementById("card_" + data.data[i].id).style.border = "1px solid " + data.boxBorder + "";
+                            document.getElementById("card_" + data.data[i].id).style.border = "3px solid " + data.boxBorder + "";
                         }
                         if (fastest == data.data[i].id) {
                             if (data.fastest == true) {
@@ -698,12 +698,12 @@ function selecterFunction(e) {
         }
         if (selected != null) {
             document.getElementById('card_' + selected + '').classList.remove('selected');
-            document.getElementById('card_' + selected + '').style.border = "solid 1px " + data.boxBorder + "";
+            document.getElementById('card_' + selected + '').style.border = "solid 3px " + data.boxBorder + "";
         }
         if (id == selected) {
             if (selected != null) {
                 document.getElementById('card_' + id + '').classList.remove('selected');
-                document.getElementById('card_' + id + '').style.border = "solid 1px " + data.boxBorder + "";
+                document.getElementById('card_' + id + '').style.border = "solid 3px " + data.boxBorder + "";
                 selected = null;
                 document.getElementById('edit_min_gain').value = "";
                 document.getElementById('edit_mean_gain').value = "";
@@ -716,7 +716,7 @@ function selecterFunction(e) {
         } else {
             if (document.getElementById('card_' + id + '')) {
                 document.getElementById('card_' + id + '').classList.add('selected');
-                document.getElementById('card_' + id + '').style.border = "solid 1px red"
+                document.getElementById('card_' + id + '').style.border = "solid 3px red"
                 selected = id;
                 for (let q = 0; q < data.data.length; q++) {
                     if (data.data[q].id == id) {
