@@ -1,97 +1,228 @@
+<!DOCTYPE html>
 <html>
 
 <head>
-    <title>Livecountsedit v6</title>
-    <link href="odometer.css" rel="stylesheet">
-    <link href="index.css" rel="stylesheet" type="text/css">
-    <link rel="icon" href="logo.png">
-    <meta charSet="utf-8" />
-    <meta name="description"
-        content="Livecountsedit - BEST LIVE PLATFORM FOR FAKE SUB COUNTS OF YOUTUBE, SOCIALBLADE, TOP 50, FYSC, FSCW, ETC" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title"
-        content="Livecountsedit - BEST LIVE PLATFORM FOR FAKE STATS OF YOUTUBE, SOCIALBLADE, TOP 50, FYSC, FSCW, ETC" />
-    <meta name="twitter:description"
-        content="Livecountsedit - BEST LIVE PLATFORM FOR FAKE STATS OF YOUTUBE, SOCIALBLADE, TOP 50, FYSC, FSCW, ETC" />
-    <meta name="twitter:image"
-        content="https://api.microlink.io/?url=https://livecountsedit.github.io/&amp;screenshot=true&amp;embed=screenshot.url&amp;overlay.browser=dark" />
-    <meta property="og:title"
-        content="Livecountsedit - BEST LIVE PLATFORM FOR FAKE STATS OF YOUTUBE, SOCIALBLADE, TOP 50, FYSC, FSCW, ETC" />
-    <meta property="og:description"
-        content="Livecountsedit - BEST LIVE PLATFORM FOR FAKE STATS OF YOUTUBE, SOCIALBLADE, TOP 50, FYSC, FSCW, ETC" />
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://livecountsedit.github.io/" />
-    <meta property="og:image"
-        content="https://api.microlink.io/?url=https://livecountsedit.github.io/&amp;screenshot=true&amp;embed=screenshot.url&amp;overlay.browser=dark" />
-    <script id="dsq-count-scr" src="//livecountsedit.disqus.com/count.js" async></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Top 50</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="../odometer.css">
+    <script src="../jquery.js"></script>
+    <script src="../odometer.js"></script>
+    <script src="../chart.js"></script>
+    <link rel="icon" href="../logo.png">
+    <style></style>
 </head>
 
 <body>
-    <center>
-        <h1 class="title">Livecountsedit</h1>
-        <a href="https://discord.com/invite/Uke3tdtYnD">
-            <h2 style="margin-top: -1vw; text-decoration: underline;">Click Here To Join The Discord!</h2>
-        </a>
-    </center>
-    <div class="container">
-        <div class="options">
-            <div>
-                <button>Subscriber Counters</button>
-                <a href="./livecountsedit/index.html">
-                    <h1>Livecountsedit</h1>
-                </a>
-                <a href="./Livecounts/index.html">
-                    <h1>Livecounts.net</h1>
-                </a>
-                <a href="./Socialblade/index.html">
-                    <h1>SocialBlade</h1>
-                </a>
-                <a href="./akshatmittal/index.html">
-                    <h1>Akshatmittal</h1>
-                </a>
+    <div class="main" id="main" style="margin-top: 0px; display: grid; grid-template-columns: repeat(5, 1fr);"></div>
+    <canvas class="main" id="chart" style="margin-top: 0px; display: none;"></canvas>
+    <div class="other" id="settings">
+        <div style="display: grid; margin-top: 10000px; grid-template-columns: repeat(2, 1fr); margin-top: 0px;">
+            <div style="margin-top: 0px; border: 1px dashed #000;" class="dashed">
+                <label>Sort By:</label>
+                <select id="sort">
+                    <option value="">Select</option>
+                    <option value="num">Number</option>
+                    <option value="name">Name</option>
+                    <option value="fastest">Fastest</option>
+                </select>
+                <label>Theme:</label>
+                <select id="theme">
+                    <option value="top10">Top 10</option>
+                    <option value="top25">Top 25</option>
+                    <option value="top50">Top 50</option>
+                    <option value="top100">Top 100</option>
+                    <option value="line">Line</option>
+                </select>
+                <button id="pauseB" onclick="pause()">Pause</button>
+                <button id="newS" onclick="newSequence()">New Sequence</button>
+                <button onclick="loadSequence()">Load Sequence (From File =>)</button>
+                <input type="file" id="loadSequence">
             </div>
-            <div>
-                <button>View Counters</button>
-                <a href="./livecountsedit/video/index.html">
-                    <h1>Livecountsedit</h1>
-                </a>
-                <a href="./akshatmittal/video/index.html">
-                    <h1>Akshatmittal</h1>
-                </a>
+            <div style="margin-top: 0px; border: 1px dashed #000;" class="dashed">
+                <button onclick="reset()">Reset</button>
+                <button onclick="save()">Save (In Browser)</button>
+                <button onclick="save2()">Save (In File)</button>
+                <button onclick="load()">Load Save (From File =>)</button>
+                <input type="file" id="loadData">
+                <input type="checkbox" id="autosave"><label>Autosave (15s)</label>
             </div>
-            <div>
-                <button>Compare Counts</button>
-                <a href="./livecountsedit/compare/index.html">
-                    <h1>Livecountsedit</h1>
-                </a>
-                <a href="./akshatmittal/compare/index.html">
-                    <h1>Akshatmittal</h1>
-                </a>
+        </div>
+        <div>
+            <h1>Audit:</h1>
+            <div style="margin-top: 0px;">
+                <input placeholder="Min" id="auditMin">
+                <input placeholder="Max" id="auditMax">
+                <input placeholder="Audit Every (min seconds)" id="auditTimeMin">
+                <input placeholder="Audit Every (max seconds)" id="auditTimeMax">
+                <button onclick="audit2()" id="audit">Enable Audits</button>
             </div>
-            <div>
-                <button>Top 50 Count</button>
-                <a href="./top50/index.html">
-                    <h1>Top 50</h1>
-                </a>
+        </div>
+        <br>
+        <div style="margin-top: 0px; display: grid; grid-template-columns: repeat(2, 1fr); overflow-x: scroll;">
+            <div style="margin-top: 0px; border: 1px dashed #000;" class="dashed">
+                <h2 style="margin-top: 0px;">Add Channel</h2>
+                <input placeholder="Name" id="add_name"><br>
+                <input placeholder="Image" id="add_image1"><label>or</label>
+                <input placeholder="Image" type="file" id="add_image2"><br>
+                <input placeholder="Count" id="add_count"><br>
+                <input placeholder="Min Gain" id="add_min_gain"><br>
+                <input placeholder="Max Gain" id="add_max_gain">
+                <hr>
+                <label>If filled in then min/max is ignored. The "std" is the range from the mean.</label><br>
+                <input placeholder="Mean Gain" id="add_mean_gain"><br>
+                <input placeholder="STD" id="add_std_gain"><br>
+                <button onclick="create()">Create</button>
+            </div>
+            <div style="margin-top: 0px; border: 1px dashed #000;" class="dashed">
+                <h2 style="margin-top: 0px; height: 1px; float: left;">Edit Channel</h2>
+                <select id="quickSelect">
+                    <option value="select">Select</option>
+                </select><label> Quick Select</label><br>
+                <br>
+                <input placeholder="Name" id="edit_name" value="">
+                <input type="checkbox" id="edit_name_check" checked>
+                <br>
+                <input placeholder="Image" id="edit_image1" value="">
+                <label>or</label>
+                <input placeholder="Image" type="file" id="edit_image2" value="">
+                <input type="checkbox" id="edit_image_check" checked>
+                <br>
+                <input placeholder="Count" id="edit_count" value="">
+                <input id="edit_count_check" type="checkbox" checked>
+                <br>
+                <input placeholder="Min Gain" id="edit_min_gain" value="">
+                <input id="edit_min_gain_check" type="checkbox" checked>
+                <br>
+                <input placeholder="Max Gain" id="edit_max_gain" value="">
+                <input id="edit_max_gain_check" type="checkbox" checked>
+                <hr>
+                <label>If filled in then min/max is ignored. The "std" is the range from the mean.</label><br>
+                <input placeholder="Mean Gain" id="edit_mean_gain" value="">
+                <input id="edit_mean_gain_check" type="checkbox" checked><br>
+                <input placeholder="STD" id="edit_std_gain">
+                <input id="edit_std_gain_check" type="checkbox" checked><br>
+                <br>
+                <button onclick="edit()">Edit</button>
+                <button onclick="deleteChannel()">Delete</button>
+            </div>
+        </div>
+        <label>Global Settings:</label>
+        <div style="display: flex; gap: 2vw; flex-wrap: wrap; overflow-x: scroll;">
+            <div style="margin-top: 0px; text-align: center;">
+                <br>
+                <label>Background Color</label><br>
+                <input type="color" value="#000000" id="backPicker">
+            </div>
+            <div style="margin-top: 0px; text-align: center;">
+                <br>
+                <label>Text Color</label><br>
+                <input type="color" value="#000000" id="textPicker">
+            </div>
+            <div style="margin-top: 0px; text-align: center;">
+                <br>
+                <label>Box Background Color</label><br>
+                <input type="color" value="#000000" id="boxPicker">
+            </div>
+            <div style="margin-top: 0px; text-align: center;">
+                <br>
+                <label>Box Border Color</label><br>
+                <input type="color" value="#000000" id="borderPicker">
+            </div>
+            <div style="margin-top: 0px; text-align: center;">
+                <br>
+                <label>Image Border Radius</label><br>
+                <input value="50" id="imageBorder"><label>%</label>
+            </div>
+            <div style="margin-top: 0px; text-align: center;">
+                <br>
+                <label>Min Gain (only used for streams)</label><br>
+                <input value="-10000" id="min_gain_global">
+            </div>
+            <div style="margin-top: 0px; text-align: center;">
+                <br>
+                <label>Max Gain (only used for streams)</label><br>
+                <input value="10000" id="max_gain_global">
+            </div>
+            <div style="margin-top: 0px; text-align: center;">
+                <br>
+                <label>Update Interval (in seconds)</label><br>
+                <input value="2" id="updateint">
+            </div>
+            <div style="margin-top: 0px; text-align: center;">
+                <br>
+                <input type="button" id="hideSettings" onclick="hideSettings()"
+                    value="Change Hotkey To Hide Settings"><label id="setting">Current: q</label>
+            </div>
+            <div style="margin-top: 0px; text-align: center;">
+                <br>
+                <input type="checkbox" id="animation" checked><label>Number Animation</label>
+            </div>
+            <div style="margin-top: 0px; text-align: center;">
+                <br>
+                <input type="checkbox" id="fastest" checked><label>Show Fastest Channel</label>
+            </div>
+            <div style="margin-top: 0px; text-align: center;">
+                <br>
+                <input type="checkbox" id="abbreviate" disabled><label>Abbreviate Counts</label>
+            </div>
+            <div style="margin-top: 0px; text-align: center;">
+                <br>
+                <input type="checkbox" id="offline"><label>Offline Gains</label>
+            </div>
+            <div style="margin-top: 0px; text-align: center;">
+                <br>
+                <label>Odometer Up Color</label><br>
+                <input type="color" value="#000000" id="odometerUp">
+            </div>
+            <div style="margin-top: 0px; text-align: center;">
+                <br>
+                <label>Odometer Down Color</label><br>
+                <input type="color" value="#000000" id="odometerDown">
+            </div>
+            <div style="margin-top: 0px; text-align: center;">
+                <br>
+                <label>Odometer Speed (in seconds)</label><br>
+                <input value="2" id="odometerSpeed">
+            </div>
+        </div>
+        <hr>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr);" id="stream">
+            <div style="border-right: solid 1px #000;">
+                <p>Add this to the response section of the nightbot command.</p>
+                <p>This command allows users to be added.</p>
+                <p>Example Usage: {!add 100/200} 100 is in the min and 200 is the max. You can limit the max and min.
+                </p>
+                <input id="connect" style="width: 95%;">
+            </div>
+            <div style="border-right: solid 1px #000;">
+                <p>Add this to the response section of the nightbot command.</p>
+                <p>This command allows users to be edited.</p>
+                <p>Example Usage: {!edit 100/200} 100 is in the min and 200 is the max. You can limit the max and min.
+                </p>
+                <input id="connect3" style="width: 95%;">
+            </div>
+            <div style="border-right: solid 1px #000;">
+                <p>Add this to the response section of the nightbot command.</p>
+                <p>This is an EXAMPLE command that just shows how to add example commands. ?values= shows the min and
+                    the max gains possible.</p>
+                <input id="connect2" style="width: 95%;">
+            </div>
+            <div style="border-right: solid 1px #000; text-align: center;">
+                <button onclick="custom()" style="font-size: 2vw;">Custom Command Maker</button>
+                <button onclick="window.location.href = '/'" style="font-size: 2vw;">Return to home page</button><br>
+                <hr>
+                <div style="border-right: solid 1px #000; font-size: 1vw;">
+                    <p>Click the button to connect!</p>
+                    <button onclick="connect()" style="font-size: 2vw;" id="toConnect">Connect</button>
+                    <label>Connected: </label><label id="isconnected">No</label>
+                </div>
             </div>
         </div>
     </div>
+    <script src="./index.js"></script>
     <br>
-    <div id="disqus_thread" style="width: 100%;"></div>
-
-    <script>
-        var disqus_config = function () {
-            this.page.url = "https://livecountsedit.github.io/index.html";
-            this.page.identifier = "https://livecountsedit.github.io/index.html";
-        };
-        (function () {
-            var d = document, s = d.createElement('script');
-            s.src = 'https://livecountsedit.disqus.com/embed.js';
-            s.setAttribute('data-timestamp', +new Date());
-            (d.head || d.body).appendChild(s);
-        })();
-    </script>
 </body>
 
 </html>
