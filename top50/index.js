@@ -196,7 +196,7 @@ function initLoad() {
                 }
             }
         } else if (data.theme == 'top100') {
-            document.getElementById('main').style = "margin-top: 0px; display: grid; grid-template-columns: repeat(10, 1fr);";
+            document.getElementById('main').style = "margin-top: 0px; display: grid; grid-template-columns: repeat(6, 1fr);";
             var style = document.createElement('style');
             style.innerHTML = `.image { height: 2.15vw; width: 2.15vw; }
         .card { height: 2.15vw; }
@@ -575,10 +575,10 @@ function update() {
             }
             function pass() {
                 //find the differences in idOrder and newIDOrder
-                let diff = [];
+                let diff = [i];
                 for (let i = 0; i < idOrder.length; i++) {
-                    if (newIDOrder[i] == idOrder[i]) { } else {
-                        diff.push(idOrder[i]);
+                    if (newIDOrder[i] == idOrder[i + 1]) { } else {
+                        diff.push(idOrder[i = 1]);
                     }
                 }
                 for (let i = 0; i < diff.length; i += 2) {
@@ -615,6 +615,7 @@ function update() {
                         document.getElementsByClassName("card")[i].children[0].id = "num_" + data.data[i].id
                         document.getElementsByClassName("card")[i].id = "card_" + data.data[i].id
                         document.getElementsByClassName("card")[i].children[3].id = "count_" + data.data[i].id
+                        document.getElementsByClassName("card")[i].children[3].id = "graph_" + data.data[i].id
                         if (data.abbreviate == true) {
                             document.getElementsByClassName("card")[i].children[3].innerHTML = abb(data.data[i].count)
                         } else {
@@ -1744,7 +1745,6 @@ async function saveSeqeunce() {
     a.download = 'sequenceData.json';
     a.click();
 }
-
 function line() {
     document.getElementById('main').innerHTML = ''
     document.getElementById('chart').style.height = '100vh'

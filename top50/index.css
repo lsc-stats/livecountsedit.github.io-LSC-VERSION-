@@ -10,11 +10,11 @@ body {
 }
 
 .num {
-    font-family: 'Roboto black';
+    font-family: 'roboto black';
     float: right;
-    margin-top: 25px;
+    margin-top: 2px;
     margin-right: 3px;
-    font-size: 25px;;
+    font-size: 20px;;
     text-align: center;
     color: #ffffff;
 }
@@ -26,9 +26,7 @@ body {
     text-align: left;
     background: #ffffff;
     border: solid 3px #ffffff;
-    transition: margin-top 1.5s;
     border-radius: 8px;
-    transition: 2s;
 }
 
 .image {
@@ -42,21 +40,20 @@ body {
 
 .count {
     transition: color 2s;
-    font-size: 1.9vw;
-    font-family: 'Roboto Black', Roboto;
-
+    font-size: 2.5vw;
+    font-family: 'roboto black';
     padding-left: 0.3vw;
     text-align: center;
     margin-top: calc(1vw - 2vh);
 }
 
 .name {
-    font-family: 'Roboto Black';
+    font-family: 'roboto black';
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     padding-left: 0.3vw;
-    font-size: 1.5vw;
+    font-size: 1.3vw;
 }
 
 .other {
