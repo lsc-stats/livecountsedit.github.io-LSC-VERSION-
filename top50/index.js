@@ -575,10 +575,10 @@ function update() {
             }
             function pass() {
                 //find the differences in idOrder and newIDOrder
-                let diff = [i];
+                let diff = [];
                 for (let i = 0; i < idOrder.length; i++) {
-                    if (newIDOrder[i] == idOrder[i + 1]) { } else {
-                        diff.push(idOrder[i = 1]);
+                    if (newIDOrder[i] == idOrder[i]) { } else {
+                        diff.push(idOrder[i]);
                     }
                 }
                 for (let i = 0; i < diff.length; i += 2) {
@@ -615,7 +615,6 @@ function update() {
                         document.getElementsByClassName("card")[i].children[0].id = "num_" + data.data[i].id
                         document.getElementsByClassName("card")[i].id = "card_" + data.data[i].id
                         document.getElementsByClassName("card")[i].children[3].id = "count_" + data.data[i].id
-                        document.getElementsByClassName("card")[i].children[3].id = "graph_" + data.data[i].id
                         if (data.abbreviate == true) {
                             document.getElementsByClassName("card")[i].children[3].innerHTML = abb(data.data[i].count)
                         } else {
@@ -1019,7 +1018,7 @@ function fix() {
     document.querySelectorAll('.card').forEach(function (card) {
         card.style.backgroundColor = data.boxColor;
         if (card.className.split(' ').includes("selected") == false) {
-            card.style.border = "solid 1px " + data.boxBorder;
+            card.style.border = "solid 3px " + data.boxBorder;
         }
     });
     document.querySelectorAll('.image').forEach(function (card) {
@@ -1745,6 +1744,7 @@ async function saveSeqeunce() {
     a.download = 'sequenceData.json';
     a.click();
 }
+
 function line() {
     document.getElementById('main').innerHTML = ''
     document.getElementById('chart').style.height = '100vh'
