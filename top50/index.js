@@ -68,6 +68,7 @@ function initLoad() {
             data.max = 50;
         } else if (data.theme == 'top100') {
             data.max = 100;
+        } else if (data.theme == 'top250') {
         }
         if (!data.odometerDown || data.odometerDown == 'null') {
             data.odometerDown = '#000';
@@ -196,17 +197,18 @@ function initLoad() {
                 }
             }
         } else if (data.theme == 'top100') {
-            document.getElementById('main').style = "margin-top: 0px; display: grid; grid-template-columns: repeat(6, 1fr);";
+            document.getElementById('main').style = "margin-top: 0px; display: grid; grid-template-columns: repeat(7, 1fr);";
             var style = document.createElement('style');
             style.innerHTML = `.image { height: 2.15vw; width: 2.15vw; }
-        .card { height: 2.15vw; }
-        .count { font-size: 1vw; }
-        .name { font-size: 0.75vw; }`;
+        .card { height: 3.02vw; }
+        .count { font-size: 1.6vw; }
+        .name { font-size: 1.0vw; width: 7vw; }
+        .num { font-size: 1.0vw; }`;
             document.getElementsByTagName('head')[0].appendChild(style);
-            for (var l = 1; l <= 10; l++) {
+            for (var l = 1; l <= 7; l++) {
                 var htmlcolumn = `<div class="column_${l} column"></div>`;
                 $('.main').append(htmlcolumn);
-                for (var t = 1; t <= 10; t++) {
+                for (var t = 1; t <= 15; t++) {
                     let cc = c;
                     if (c < 10) {
                         cc = "0" + c;
@@ -384,16 +386,16 @@ function initLoad2() {
         document.getElementById('main').style = "margin-top: 0px; display: grid; grid-template-columns: repeat(10, 1fr);";
         var style = document.createElement('style');
         style.innerHTML = `.image { height: 2.15vw; width: 2.15vw; }
-        .card { height: 2.15vw; }
+        .card { height: 2.15vw; width: 0.79vw; }
         .count { font-size: 1vw; }
         .name { font-size: 0.75vw; }`;
         document.getElementsByTagName('head')[0].appendChild(style);
-        for (var l = 1; l <= 10; l++) {
+        for (var l = 1; l <= 12; l++) {
             var htmlcolumn = `<div class="column_${l} column"></div>`;
             $('.main').append(htmlcolumn);
-            for (var t = 1; t <= 10; t++) {
+            for (var t = 1; t <= 12; t++) {
                 let cc = c;
-                if (c < 10) {
+                if (c < 12) {
                     cc = "0" + c;
                 }
                 if (data.data[c - 1]) {
@@ -414,6 +416,7 @@ function initLoad2() {
                 <div class="num" id="num_">${cc}</div>
                 <img src="../default.png" alt="" id="image_" class="image">
                 <div class="name" id="name_">Loading</div>
+                <hr class="hr"><hr>
                 <div class="count odometer" id="count_">0</div>
                 </div>`;
                     $('.column_' + l).append(htmlcard);
@@ -557,7 +560,7 @@ function update() {
                     return (a + b) / 2
                 }
                 data.data = data.data.sort(function (a, b) {
-                    return avg(b.min_gain, b.max_gain) - avg(a.min_gain, a.max_gain);
+                    return avg(b.min_gain, b.mix_gain) - avg(a.min_gain, a.max_gain);
                 });
                 data.sort = "fastest";
             } else {
@@ -584,8 +587,8 @@ function update() {
                 for (let i = 0; i < diff.length; i += 2) {
                     console.log(diff[i] + " and " + diff[i + 1] + " switched places");
                     if (diff[i] && diff[i + 1]) {
-                        let a = document.getElementById('card_' + diff[i]);
-                        let b = document.getElementById('card_' + diff[i + 1]);
+                        let a = document.getElementById("card_" + diff[i]);
+                        let b = document.getElementById("card_" + diff[i + 1]);
                         a.style.marginTop = "200px";
                         b.style.marginTop = "-200px";
                         setTimeout(function () {
@@ -621,13 +624,13 @@ function update() {
                             document.getElementsByClassName("card")[i].children[3].innerHTML = Math.floor(data.data[i].count)
                         }
                         if (selected == data.data[i].id) {
-                            document.getElementById("card_" + selected).style.border = "3px solid red";
+                            document.getElementById("card_" + selected).style.border = "0px solid red";
                         } else {
-                            document.getElementById("card_" + data.data[i].id).style.border = "3px solid " + data.boxBorder + "";
+                            document.getElementById("card_" + data.data[i].id).style.border = "0px solid " + data.boxBorder + "";
                         }
                         if (fastest == data.data[i].id) {
                             if (data.fastest == true) {
-                                document.getElementById("card_" + fastest).children[2].innerHTML = "🔥" + data.data[i].name
+                                document.getElementById("card_" + fastest).children[2].innerHTML = "🔥: " + data.data[i].name
                             }
                         }
                     }
@@ -698,12 +701,12 @@ function selecterFunction(e) {
         }
         if (selected != null) {
             document.getElementById('card_' + selected + '').classList.remove('selected');
-            document.getElementById('card_' + selected + '').style.border = "solid 3px " + data.boxBorder + "";
+            document.getElementById('card_' + selected + '').style.border = "solid 0px " + data.boxBorder + "";
         }
         if (id == selected) {
             if (selected != null) {
                 document.getElementById('card_' + id + '').classList.remove('selected');
-                document.getElementById('card_' + id + '').style.border = "solid 3px " + data.boxBorder + "";
+                document.getElementById('card_' + id + '').style.border = "solid 0px " + data.boxBorder + "";
                 selected = null;
                 document.getElementById('edit_min_gain').value = "";
                 document.getElementById('edit_mean_gain').value = "";
@@ -716,7 +719,7 @@ function selecterFunction(e) {
         } else {
             if (document.getElementById('card_' + id + '')) {
                 document.getElementById('card_' + id + '').classList.add('selected');
-                document.getElementById('card_' + id + '').style.border = "solid 3px red"
+                document.getElementById('card_' + id + '').style.border = "solid 0px red"
                 selected = id;
                 for (let q = 0; q < data.data.length; q++) {
                     if (data.data[q].id == id) {
@@ -1018,7 +1021,7 @@ function fix() {
     document.querySelectorAll('.card').forEach(function (card) {
         card.style.backgroundColor = data.boxColor;
         if (card.className.split(' ').includes("selected") == false) {
-            card.style.border = "solid 3px " + data.boxBorder;
+            card.style.border = "solid 0px " + data.boxBorder;
         }
     });
     document.querySelectorAll('.image').forEach(function (card) {
@@ -1675,7 +1678,7 @@ function selecterFunction2(e) {
         if (e.target.id.includes("_")) {
             if (selectedChannels.includes(e.target.id)) {
                 selectedChannels.splice(selectedChannels.indexOf(e.target.id), 1)
-                document.getElementById('card_' + e.target.id.split("_")[1] + '').style.border = "solid 1px " + data.boxBorder + "";
+                document.getElementById('card_' + e.target.id.split("_")[1] + '').style.border = "solid 0px " + data.boxBorder + "";
             } else {
                 selectedChannels.push(e.target.id)
                 let id = e.target.id.split("_")[1];
@@ -1684,7 +1687,7 @@ function selecterFunction2(e) {
                         id = id + "_" + e.target.id.split("_")[i];
                     }
                 }
-                document.getElementById('card_' + id + '').style.border = "solid 1px blue";
+                document.getElementById('card_' + id + '').style.border = "solid 0px blue";
             }
         }
     }

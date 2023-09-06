@@ -1,7 +1,65 @@
 /* #f7f5fe */
 body {
+    background-color: rgba(0, 0, 0, .0);
     font-family: 'Roboto Medium';
     transition: color 2s;
+}
+
+.backbox {
+    border-radius: 12px;
+    background-color: rgb(14, 14, 14);
+    width: 47%;
+    height: 3.7vw;
+    margin-top: 0.15vw;
+    margin-left: 0.15vw;
+}
+
+.title {
+    font-family: 'roboto medium';
+    font-size: 3vw;
+    background: -webkit-linear-gradient(rgb(191, 0, 191), #8000ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-left: 3px;
+    margin-top: 0.4vw;
+}
+
+.version {
+    font-size: 0.8vw;
+    font-family: 'roboto medium';
+    background: -webkit-linear-gradient(rgb(191, 0, 191), #8000ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-left: 41.9vw;
+    margin-top: -1.5vw;
+}
+
+.backbox2 {
+    background-color: rgb(14, 14, 14);
+    border-radius: 12px;
+    width: 20%;
+    height: 3.7vw;
+    padding-left: 0.15vw;
+    margin-top: -4.1vw;
+    margin-left: 47.3vw;
+}
+
+.streamed {
+    font-family: 'roboto medium';
+    font-size: 1.2vw;
+    background: -webkit-linear-gradient(rgb(191, 0, 191), #8000ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: 0.4vw;
+}
+
+.lsc {
+    font-family: 'roboto medium';
+    font-size: 1.9vw;
+    background: -webkit-linear-gradient(rgb(191, 0, 191), #8000ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-top: -1vw;
 }
 
 .main {
@@ -16,35 +74,34 @@ body {
     margin-right: 3px;
     font-size: 25px;;
     text-align: center;
-    color: #ffffff;
+    color: rgb(225, 225, 0);
 }
 
 .card {
-    height: 4.65vw;
-    padding: 0.2vw;
-    margin: 0.2vw;
+    height: 4.75vw;
+    padding: 0.15vw;
+    margin: 0.15vw;
     text-align: left;
     background: #ffffff;
-    border: solid 3px #ffffff;
+    border: solid 0px #ffffff;
     transition: margin-top 1.5s;
-    border-radius: 8px;
-    transition: 2s;
+    border-radius: 12px;
+    transition: .3s;
 }
 
 .image {
-    height: 4.3vw;
-    width: 4.3vw;
+    height: 4.5vw;
+    width: 4.5vw;
     float: left;
     margin-left: 1px;
     border-radius: 10px;
-    border: solid 2px rgb(255, 255, 255);
+    border: solid 2px white;
 }
 
 .count {
     transition: color 2s;
-    font-size: 2.3vw;
+    font-size: 2.4vw;
     font-family: 'Roboto medium';
-
     padding-left: 0.3vw;
     text-align: center;
     margin-top: calc(1vw - 2vh);
@@ -54,9 +111,10 @@ body {
     font-family: 'Roboto medium';
     white-space: nowrap;
     overflow: hidden;
+    width: 12vw;
     text-overflow: ellipsis;
     padding-left: 0.3vw;
-    font-size: 1.5vw;
+    font-size: 1.7vw;
 }
 
 .other {
@@ -71,6 +129,7 @@ body {
 .selected {
     background-color: #ccc;
     transition: color 2s;
+    box-shadow: 0 0 10px rgb(255, 0, 0);
     border: solid 1px red;
 }
 
